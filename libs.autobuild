@@ -1,2 +1,3 @@
 ##### External libraries not available as binary packages
-cmake_package 'howto'
+import_package 'howto'
+
