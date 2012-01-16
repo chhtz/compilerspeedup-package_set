@@ -1,0 +1,8 @@
+ccache:
+    debian,ubuntu:
+      	- ccache
+
+distcc:
+    debian,ubuntu:
+      	- distcc
+

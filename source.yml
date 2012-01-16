@@ -1,0 +1,21 @@
+name: cohon
+required_autoproj_version: 1.7.4
+
+#imports:
+#    - type: git
+#      url: $SPACEGIT_ROOT/rock-base/package_set.git
+#      push_to: $SPACEGIT_PUSH_ROOT/rock-base/package_set.git
+
+#version_control:
+#    - .*:
+#        type: git
+#        url: $SPACEGIT_ROOT/cohon/$PACKAGE_BASENAME.git
+#        push_to: $SPACEGIT_PUSH_ROOT/cohon/$PACKAGE_BASENAME.git
+        
+#    - lib_manager:
+#      type: git 
+#      url: $SPACEGIT_ROOT/mars/lib_manager.git
+#      push_to: $SPACEGIT_PUSH_ROOT/mars/lib_manager.git
+#      branch: $ROCK_FLAVOR
+        
+        
