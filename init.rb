@@ -32,6 +32,10 @@ Autoproj.shell_helpers = false
 
 
 
+#todo
+#use more options "wrapper path", ccache only
+#option to replace /etc/default/distcc
+
     #enable ccache
     configuration_option 'CCache', 'string',
     :default => 'no',
