@@ -1,2 +1,2 @@
 ##### External libraries not available as binary packages
-
+import_package 'howto'
