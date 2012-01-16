@@ -31,30 +31,14 @@ Autoproj.env_inherit 'CMAKE_PREFIX_PATH'
 Autoproj.shell_helpers = false
 
 
-
-#enable ccache 
-#todo options at bootstrap
-#    env_set 'CC',"/usr/lib/ccache/gcc"
-#    env_set 'CXX',"/usr/lib/ccache/g++"###
-#
-#    env_set 'CMAKE_CXX_COMPILER_ARG1',"-m32"
-#    env_set 'CMAKE_C_COMPILER_ARG1',"-m32"#
-##
-#
-#    env_set 'CCACHE_PREFIX',"distcc"
-#    env_set 'DISTCC_HOSTS',"CoHoN-3-u"
-
-    #enable ccache
-
-
     configuration_option 'CCache', 'string',
-    :default => 'false',
-    :values => ['true', 'fasle'],
-    :doc => ["Do you want to use ccache for compiling sources"]
+    :default => 'no',
+    :values => ['yes', 'no'],
+    :doc => ["Do you want to use ccache and distcc for compiling sources [yes/no]"]
 
     Autoproj.user_config('CCache')
 
-if (Autoproj.user_config('CCache') == true){
+if (Autoproj.user_config('CCache') == 'yes') then
     Autobuild.parallel_build_level = 20
 
     env_set 'CC',"/usr/lib/ccache/gcc"
@@ -66,6 +50,6 @@ if (Autoproj.user_config('CCache') == true){
 
     env_set 'CXXFLAGS',"-m32"
     env_set 'CFLAGS',"-m32"
+end
 
-}
 
