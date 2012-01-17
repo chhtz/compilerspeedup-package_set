@@ -36,27 +36,93 @@ Autoproj.shell_helpers = false
 #use more options "wrapper path", ccache only
 #option to replace /etc/default/distcc
 
-    #enable ccache
+#enable ccache
     configuration_option 'CCache', 'string',
     :default => 'no',
     :values => ['yes', 'no'],
-    :doc => ["Do you want to use ccache and distcc for compiling sources [yes/no]"]
+    :doc => ["Do you want to use ccache for compiling sources [yes/no]"]
 
     Autoproj.user_config('CCache')
 
-if (Autoproj.user_config('CCache') == 'yes') then
+#enable distcc
+    configuration_option 'DistCC', 'string',
+    :default => 'no',
+    :values => ['yes', 'no'],
+    :doc => ["Do you want to use distcc for compiling sources [yes/no]"]
 
+    Autoproj.user_config('DistCC')
+
+
+
+
+
+
+
+
+#the actural settings
+
+if (Autoproj.user_config('CCache') == 'yes') then
+	puts "CCache config"
     Autobuild.parallel_build_level = 20
 
     env_set 'CC',"/usr/lib/ccache/gcc"
     env_set 'CXX',"/usr/lib/ccache/g++"
 
-    env_set 'CCACHE_PREFIX',"distcc"
+end
+
+
+if (Autoproj.user_config('DistCC') == 'yes') then
+	
+    if (Autoproj.user_config('CCache') == 'yes') then
+    	env_set 'CCACHE_PREFIX',"distcc"
+    	puts "Ditscc + ccache config"
+    else
+    	puts "Ditscc only config"
+        env_set 'CC',"/usr/lib/distcc/gcc"
+        env_set 'CXX',"/usr/lib/distcc/g++"
+    end
+    
     #env_set 'DISTCC_HOSTS',"'localhost CoHoN-3-u aburchardt-u gaudig aduda-u uwdesktop fritsche'"
     #env_set 'DISTCC_HOSTS',"\"localhost CoHoN-3-u gaudig\""
 
-    env_set 'CXXFLAGS',"-m32"
-    env_set 'CFLAGS',"-m32"
+
+   configuration_option 'DistCCArch', 'string',
+    :default => '32',
+    :values => ['32', '64'],
+    :doc => ["Which Architecture do you use? [gcc opttion for -m like [32,64]]"]
+    Autoproj.user_config('DistCCArch')
+    env_set 'CXXFLAGS',"-m" + Autoproj.user_config('DistCCArch')
+    env_set 'CFLAGS',"-m" + Autoproj.user_config('DistCCArch')
+
+#   configuration_option 'DistCCBuildLevel', 'fixnum',
+#    :default => '20',
+#    :values => [],
+#    :doc => ["How many parallel builds should be preferred?"]
+#    Autoproj.user_config('DistCCBuildLevel')
+#
+#    Autobuild.parallel_build_level = Autoproj.user_config('DistCCBuildLevel')
+    Autobuild.parallel_build_level = 20
+
+#   configuration_option 'DistCCDir', 'string',
+#    :default => Autoproj.root_dir() + '/external/compilerspeedup',
+#    :values => [],
+#    :doc => ["Set your distcc directory (where the hosts file is located)"]
+#    Autoproj.user_config('DistCCDir')
+#    
+#	env_set 'DISTCC_DIR', Autoproj.user_config('DistCCDir')
+
+	
+#	env_set 'DISTCC_HOSTS','"localhost gaudig"'
+
+else
+    env_set 'CXXFLAGS',""
+    env_set 'CFLAGS',""		
+    
+end	
+
+if (Autoproj.user_config('DistCC') == 'no' && Autoproj.user_config('CCache') == 'no') then
+    env_set 'CXX',""
+    env_set 'CC',""	
 end
 
 
