@@ -103,20 +103,29 @@ if (Autoproj.user_config('DistCC') == 'yes') then
 #    Autobuild.parallel_build_level = Autoproj.user_config('DistCCBuildLevel')
     Autobuild.parallel_build_level = 20
 
-#   configuration_option 'DistCCDir', 'string',
-#    :default => Autoproj.root_dir() + '/external/compilerspeedup',
-#    :values => [],
-#    :doc => ["Set your distcc directory (where the hosts file is located)"]
-#    Autoproj.user_config('DistCCDir')
-#    
-#	env_set 'DISTCC_DIR', Autoproj.user_config('DistCCDir')
+   configuration_option 'useDistCCDir', 'string',
+    :default => 'yes',
+    :values => ['yes','no'],
+    :doc => ["Should a different host list be used ? (the DFKI host list needs the package 'compilerspeedup')"]
+    Autoproj.user_config('useDistCCDir')
 
+	if (Autoproj.user_config('useDistCCDir') == 'yes') then
+        configuration_option 'DistCCDir', 'string',
+        :default => Autoproj.root_dir() + '/external/compilerspeedup',
+        :values => [],
+        :doc => ["Set your distcc directory (where the hosts file is located)",
+                 "in case of DFKI host list the compilerspeedup package folder"]
+        Autoproj.user_config('DistCCDir')
+    
+		env_set 'DISTCC_DIR', Autoproj.user_config('DistCCDir')
+
+    end
 	
 #	env_set 'DISTCC_HOSTS','"localhost gaudig"'
 
 else
     env_set 'CXXFLAGS',""
-    env_set 'CFLAGS',""		
+    env_set 'CFLAGS',""	
     
 end	
 
