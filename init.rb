@@ -62,9 +62,7 @@ Autoproj.shell_helpers = false
 #the actural settings
 
 if (Autoproj.user_config('CCache') == 'yes') then
-	puts "CCache config"
-    Autobuild.parallel_build_level = 20
-
+    puts "CCache config"
     env_set 'CC',"/usr/lib/ccache/gcc"
     env_set 'CXX',"/usr/lib/ccache/g++"
 
@@ -86,13 +84,13 @@ if (Autoproj.user_config('DistCC') == 'yes') then
     #env_set 'DISTCC_HOSTS',"\"localhost CoHoN-3-u gaudig\""
 
 
-   configuration_option 'DistCCArch', 'string',
-    :default => '32',
-    :values => ['32', '64'],
-    :doc => ["Which Architecture do you use? [gcc opttion for -m like [32,64]]"]
-    Autoproj.user_config('DistCCArch')
-    env_set 'CXXFLAGS',"-m" + Autoproj.user_config('DistCCArch')
-    env_set 'CFLAGS',"-m" + Autoproj.user_config('DistCCArch')
+#   configuration_option 'DistCCArch', 'string',
+#    :default => '32',
+#    :values => ['32', '64'],
+#    :doc => ["Which Architecture do you use? [gcc opttion for -m like [32,64]]"]
+#    Autoproj.user_config('DistCCArch')
+#    env_set 'CXXFLAGS',"-m" + Autoproj.user_config('DistCCArch')
+#    env_set 'CFLAGS',"-m" + Autoproj.user_config('DistCCArch')
 
 #   configuration_option 'DistCCBuildLevel', 'fixnum',
 #    :default => '20',
@@ -101,7 +99,7 @@ if (Autoproj.user_config('DistCC') == 'yes') then
 #    Autoproj.user_config('DistCCBuildLevel')
 #
 #    Autobuild.parallel_build_level = Autoproj.user_config('DistCCBuildLevel')
-    Autobuild.parallel_build_level = 20
+    Autobuild.parallel_build_level = 10
 
    configuration_option 'useDistCCDir', 'string',
     :default => 'yes',
@@ -113,11 +111,16 @@ if (Autoproj.user_config('DistCC') == 'yes') then
         configuration_option 'DistCCDir', 'string',
         :default => Autoproj.root_dir() + '/external/compilerspeedup',
         :values => [],
-        :doc => ["Set your distcc directory (where the hosts file is located)",
+        :doc => ["Set your distcc directory (where the hosts file and updatedistcchosts.sh is located)",
                  "in case of DFKI host list the compilerspeedup package folder"]
         Autoproj.user_config('DistCCDir')
     
-		env_set 'DISTCC_DIR', Autoproj.user_config('DistCCDir')
+	env_set 'DISTCC_DIR', Autoproj.user_config('DistCCDir')
+        env_set 'CC',Autoproj.user_config('DistCCDir') + "/ccache_gcc"
+        env_set 'CXX',Autoproj.user_config('DistCCDir') + "/ccache_g++"
+	env_set 'CCACHE_PREFIX',"distcc"
+	
+        Autobuild.env_source_file(Autoproj.user_config('DistCCDir') + "/updatedistcchosts.sh")
 
     end
 	
