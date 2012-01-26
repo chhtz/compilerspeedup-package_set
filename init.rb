@@ -40,7 +40,7 @@ Autoproj.shell_helpers = false
     configuration_option 'CCache', 'string',
     :default => 'no',
     :values => ['yes', 'no'],
-    :doc => ["Do you want to use ccache for compiling sources [yes/no]"]
+    :doc => ["Enable ccache?","CCache chaches your preprocessor output and according binaries and can speed up recompiling","to clear the buffer call \"ccache -C\"","Do you want to use ccache for compiling sources [yes/no]"]
 
     Autoproj.user_config('CCache')
 
@@ -48,14 +48,9 @@ Autoproj.shell_helpers = false
     configuration_option 'DistCC', 'string',
     :default => 'no',
     :values => ['yes', 'no'],
-    :doc => ["Do you want to use distcc for compiling sources [yes/no]"]
+    :doc => ["enable DistCC","DistCC compiles distributed in the Network.","If you have a slow machine, this speeds up compiling","Do you want to use distcc for compiling sources [yes/no]"]
 
     Autoproj.user_config('DistCC')
-
-
-
-
-
 
 
 
@@ -101,18 +96,20 @@ if (Autoproj.user_config('DistCC') == 'yes') then
 #    Autobuild.parallel_build_level = Autoproj.user_config('DistCCBuildLevel')
     Autobuild.parallel_build_level = 10
 
-   configuration_option 'useDistCCDir', 'string',
+   configuration_option( 'useDistCCDir', 'string',
     :default => 'yes',
     :values => ['yes','no'],
-    :doc => ["Should a different host list be used ? (the DFKI host list needs the package 'compilerspeedup')"]
+    :doc => [   "Use DFKI distcc Server List?","There is a List of DFKI distcc servers ",
+                "which are checked for availability on sourcing env.sh",
+                "(the DFKI host list needs the package 'compilerspeedup')",
+                "Should the DFKI host list be used (if no, you need to set up /etc/distcc/hosts manually) ? [yes/no]"])
     Autoproj.user_config('useDistCCDir')
 
 	if (Autoproj.user_config('useDistCCDir') == 'yes') then
         configuration_option 'DistCCDir', 'string',
         :default => Autoproj.root_dir() + '/external/compilerspeedup',
         :values => [],
-        :doc => ["Set your distcc directory (where the hosts file and updatedistcchosts.sh is located)",
-                 "in case of DFKI host list the compilerspeedup package folder"]
+        :doc => ["Set the location of the compilerspeedup package","(where the hosts file and updatedistcchosts.sh is located)"]
         Autoproj.user_config('DistCCDir')
     
 	env_set 'DISTCC_DIR', Autoproj.user_config('DistCCDir')
