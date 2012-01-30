@@ -38,7 +38,7 @@ NICE="19"
 #
 # JOBS=""
 
-JOBS="4"
+JOBS="2"
 
 #
 # Enable Zeroconf support?

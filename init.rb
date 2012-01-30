@@ -40,7 +40,11 @@ Autoproj.shell_helpers = false
     configuration_option 'CCache', 'string',
     :default => 'no',
     :values => ['yes', 'no'],
-    :doc => ["Enable ccache?","CCache chaches your preprocessor output and according binaries and can speed up recompiling","to clear the buffer call \"ccache -C\"","Do you want to use ccache for compiling sources [yes/no]"]
+    :doc => ["Enable ccache?",
+             "CCache chaches your preprocessor output and according binaries.",
+             "It can speed up recompiling",
+             "To clear the buffer call \"ccache -C\"",
+             "Do you want to use ccache for compiling sources [yes/no]"]
 
     Autoproj.user_config('CCache')
 
@@ -48,7 +52,10 @@ Autoproj.shell_helpers = false
     configuration_option 'DistCC', 'string',
     :default => 'no',
     :values => ['yes', 'no'],
-    :doc => ["enable DistCC","DistCC compiles distributed in the Network.","If you have a slow machine, this speeds up compiling","Do you want to use distcc for compiling sources [yes/no]"]
+    :doc => ["Enable distcc?",
+             "Distcc compiles distributed in the Network.",
+             "If you have a slow machine, this speeds up compiling",
+             "Do you want to use distcc for compiling sources [yes/no]"]
 
     Autoproj.user_config('DistCC')
 
@@ -57,7 +64,6 @@ Autoproj.shell_helpers = false
 #the actural settings
 
 if (Autoproj.user_config('CCache') == 'yes') then
-    puts "CCache config"
     env_set 'CC',"/usr/lib/ccache/gcc"
     env_set 'CXX',"/usr/lib/ccache/g++"
 
@@ -68,9 +74,7 @@ if (Autoproj.user_config('DistCC') == 'yes') then
 	
     if (Autoproj.user_config('CCache') == 'yes') then
     	env_set 'CCACHE_PREFIX',"distcc"
-    	puts "Ditscc + ccache config"
     else
-    	puts "Ditscc only config"
         env_set 'CC',"/usr/lib/distcc/gcc"
         env_set 'CXX',"/usr/lib/distcc/g++"
     end
@@ -99,17 +103,22 @@ if (Autoproj.user_config('DistCC') == 'yes') then
    configuration_option( 'useDistCCDir', 'string',
     :default => 'yes',
     :values => ['yes','no'],
-    :doc => [   "Use DFKI distcc Server List?","There is a List of DFKI distcc servers ",
-                "which are checked for availability on sourcing env.sh",
+    :doc => [   "Use DFKI distcc Server List?",
+                "There is a list of DFKI distcc servers.",
+                "The servers are checked for availability on sourcing env.sh",
                 "(the DFKI host list needs the package 'compilerspeedup')",
-                "Should the DFKI host list be used (if no, you need to set up /etc/distcc/hosts manually) ? [yes/no]"])
+                 "Add this to your manifest:",
+                 "layout:\n    - external:\n        - compilerspeedup",
+                "Should the DFKI host list be used?",
+                "(if no, you need to set up /etc/distcc/hosts manually) ? [yes/no]"])
     Autoproj.user_config('useDistCCDir')
 
 	if (Autoproj.user_config('useDistCCDir') == 'yes') then
         configuration_option 'DistCCDir', 'string',
         :default => Autoproj.root_dir() + '/external/compilerspeedup',
         :values => [],
-        :doc => ["Set the location of the compilerspeedup package","(where the hosts file and updatedistcchosts.sh is located)"]
+        :doc => ["Set the location of the compilerspeedup package",
+                 "(where the hosts file and updatedistcchosts.sh is located)"]
         Autoproj.user_config('DistCCDir')
     
 	env_set 'DISTCC_DIR', Autoproj.user_config('DistCCDir')
@@ -124,14 +133,22 @@ if (Autoproj.user_config('DistCC') == 'yes') then
 #	env_set 'DISTCC_HOSTS','"localhost gaudig"'
 
 else
-    env_set 'CXXFLAGS',""
-    env_set 'CFLAGS',""	
+    puts("You need to restart the console and source env.sh before changes take effect")
+#    STDIN.readline
+#    system("unset CXXFLAGS")
+#    system("unset CFLAGS")
+    #env_set 'CXXFLAGS',""
+    #env_set 'CFLAGS',""	
     
 end	
 
 if (Autoproj.user_config('DistCC') == 'no' && Autoproj.user_config('CCache') == 'no') then
-    env_set 'CXX',""
-    env_set 'CC',""	
+    puts("You need to restart the console and source env.sh before changes take effect")
+#    STDIN.readline
+#    system("unset CXX")
+#    system("unset CC")
+#    env_set 'CXX',""
+#    env_set 'CC',""	
 end
 
 
