@@ -106,18 +106,18 @@ if (Autoproj.user_config('DistCC') == 'yes') then
     :doc => [   "Use DFKI distcc Server List?",
                 "There is a list of DFKI distcc servers.",
                 "The servers are checked for availability on sourcing env.sh",
-                "(the DFKI host list needs the package 'compilerspeedup')",
+                "(the DFKI host list needs the package 'distcc_conf')",
                  "Add this to your manifest:",
-                 "layout:\n    - external:\n        - compilerspeedup",
+                 "layout:\n    - external:\n        - distcc_conf",
                 "Should the DFKI host list be used?",
                 "(if no, you need to set up /etc/distcc/hosts manually) ? [yes/no]"])
     Autoproj.user_config('useDistCCDir')
 
 	if (Autoproj.user_config('useDistCCDir') == 'yes') then
         configuration_option 'DistCCDir', 'string',
-        :default => Autoproj.root_dir() + '/external/compilerspeedup',
+        :default => Autoproj.root_dir() + '/external/distcc_conf',
         :values => [],
-        :doc => ["Set the location of the compilerspeedup package",
+        :doc => ["Set the location of the distcc_conf package",
                  "(where the hosts file and updatedistcchosts.sh is located)"]
         Autoproj.user_config('DistCCDir')
     

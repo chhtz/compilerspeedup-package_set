@@ -1,3 +1,3 @@
 ##### External libraries not available as binary packages
-import_package 'compilerspeedup'
+import_package 'distcc_conf'
 
