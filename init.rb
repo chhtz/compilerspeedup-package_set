@@ -75,8 +75,8 @@ if (Autoproj.user_config('DistCC') == 'yes') then
     if (Autoproj.user_config('CCache') == 'yes') then
     	env_set 'CCACHE_PREFIX',"distcc"
     else
-        env_set 'CC',"/usr/lib/distcc/gcc"
-        env_set 'CXX',"/usr/lib/distcc/g++"
+        env_set 'CC',"/usr/lib/distcc/gcc-4.4"
+        env_set 'CXX',"/usr/lib/distcc/g++-4.4"
     end
     
     #env_set 'DISTCC_HOSTS',"'localhost CoHoN-3-u aburchardt-u gaudig aduda-u uwdesktop fritsche'"
