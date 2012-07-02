@@ -98,7 +98,7 @@ if (Autoproj.user_config('DistCC') == 'yes') then
 #    Autoproj.user_config('DistCCBuildLevel')
 #
 #    Autobuild.parallel_build_level = Autoproj.user_config('DistCCBuildLevel')
-    Autobuild.parallel_build_level = 10
+    Autobuild.parallel_build_level = 30
 
    configuration_option( 'useDistCCDir', 'string',
     :default => 'yes',
