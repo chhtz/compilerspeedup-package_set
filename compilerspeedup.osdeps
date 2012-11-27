@@ -4,5 +4,5 @@ ccache:
 
 distcc:
     debian,ubuntu:
-      	- distcc
+        - distcc
 
