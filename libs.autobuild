@@ -1,3 +1,2 @@
 ##### External libraries not available as binary packages
-import_package 'distcc_conf'
-
+import_package 'autoproj_icecc'
