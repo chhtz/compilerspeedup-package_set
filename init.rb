@@ -54,11 +54,9 @@ Autoproj.env_inherit 'CMAKE_PREFIX_PATH'
 
 
 if (Autoproj.user_config('iceCC') == 'yes') then
-        env_set 'PATH=/usr/lib/icecc/bin:$PATH'
-    end
+	Autobuild.env_source_file("export PATH=/usr/lib/icecc/bin:$PATH")
+	Autobuild.parallel_build_level = 15
 	puts("You need to run source env.sh before changes take effect")
-    Autobuild.parallel_build_level = 10
-
 else
     puts("You need to restart the console and source env.sh before changes take effect")    
 end	
