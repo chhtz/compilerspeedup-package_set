@@ -5,3 +5,8 @@ ccache:
 distcc:
     debian,ubuntu:
         - distcc
+
+icecc:
+    debian,ubuntu:
+        - icecc
+        - icecc-monitor
