@@ -23,44 +23,25 @@
 # NOTE: Variables set like this are exported in the generated 'env.sh' script.
 #
 
-require 'autoproj/gitorious'
-Autoproj.gitorious_server_configuration('GITORIOUS', 'gitorious.org')
-Autoproj.gitorious_server_configuration('SPACEGIT', 'spacegit.dfki.uni-bremen.de')
-
 Autoproj.env_inherit 'CMAKE_PREFIX_PATH'
-# Autoproj.shell_helpers = false
+#enable iceCC 
+configuration_option 'iceCC', 'string',
+:default => 'no',
+:values => ['yes', 'no'],
+:doc => ["Enable icecc?",
+     "Distcc compiles distributed in the Network.",
+     "If you have a slow machine, this speeds up compiling",
+     "Do you want to use icecc for compiling sources [yes/no]"]
 
-
-
-#todo
-#use more options "wrapper path", ccache only
-#option to replace /etc/default/distcc
-
-
-#enable distcc
-    configuration_option 'iceCC', 'string',
-    :default => 'no',
-    :values => ['yes', 'no'],
-    :doc => ["Enable icecc?",
-             "Distcc compiles distributed in the Network.",
-             "If you have a slow machine, this speeds up compiling",
-             "Do you want to use icecc for compiling sources [yes/no]"]
-
-    Autoproj.user_config('iceCC')
-
-
-
-#the actural settings
-
-
+Autoproj.user_config('iceCC')
+#the actural settings if enabled
 if (Autoproj.user_config('iceCC') == 'yes') then
-#	Autobuild.env_source_file('export PATH=/usr/lib/icecc/bin:$PATH')
 	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
+	# icecc recommentds 15, so lets use it
 	Autobuild.parallel_build_level = 15
-#	env_set 'CC',"/usr/lib/distcc/gcc-4.4"
-#	env_set 'CXX',"/usr/lib/distcc/g++-4.4"
 	puts("You need to run source env.sh before changes take effect")
 else
     puts("You need to restart the console and source env.sh before changes take effect")    
 end	
+
 
