@@ -38,7 +38,7 @@ Autoproj.user_config('iceCC')
 if (Autoproj.user_config('iceCC') == 'yes') then
 	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
 	# icecc recommentds 15, so lets use it
-	Autobuild.parallel_build_level = 15
+	Autobuild.parallel_build_level = 50
 	puts("You need to run source env.sh before changes take effect")
 else
     puts("You need to restart the console and source env.sh before changes take effect")    
