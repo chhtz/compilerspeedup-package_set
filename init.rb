@@ -21,8 +21,4 @@ configuration_option 'iceCC', 'string',
     
     value
 end
-
-#Autoproj.user_config('iceCC')
-
-
-
+Autoproj.user_config('iceCC')
