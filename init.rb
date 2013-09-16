@@ -33,7 +33,7 @@ configuration_option 'iceCC', 'string',
      "If you have a slow machine, this speeds up compiling",
      "Do you want to use icecc for compiling sources [yes/no]"]
 
-Autoproj.user_config('iceCC')
+#Autoproj.user_config('iceCC')
 #the actural settings if enabled
 if (Autoproj.user_config('iceCC') == 'yes') then
 	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
