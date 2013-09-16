@@ -23,25 +23,33 @@
 # NOTE: Variables set like this are exported in the generated 'env.sh' script.
 #
 
+#enable iceCC ?
 Autoproj.env_inherit 'CMAKE_PREFIX_PATH'
-#enable iceCC 
+
+gitorious_long_doc = [
+       "Enable icecc?",
+       "icecc compiles distributed in the Network, when installed.",
+       "If you have a slow machine, this speeds up compiling",
+       "Do you want to use icecc for compiling sources [yes/no]"]
+
 configuration_option 'iceCC', 'string',
 :default => 'no',
-:values => ['yes', 'no'],
-:doc => ["Enable icecc?",
-     "Distcc compiles distributed in the Network.",
-     "If you have a slow machine, this speeds up compiling",
-     "Do you want to use icecc for compiling sources [yes/no]"]
+:possible_values => ['yes', 'no'],
+:doc => gitorious_long_doc do |value|
+
+    #the actural settings if enabled
+    if (value == 'yes') then
+      Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
+      # icecc recommentds 15, so lets use it
+      Autobuild.parallel_build_level = 50
+      puts("You need to run source env.sh before changes take effect")
+    else
+      puts("You need to restart the console and source env.sh before changes take effect")    
+    end
+    value
+end
 
 Autoproj.user_config('iceCC')
-#the actural settings if enabled
-if (Autoproj.user_config('iceCC') == 'yes') then
-	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
-	# icecc recommentds 15, so lets use it
-	Autobuild.parallel_build_level = 50
-	puts("You need to run source env.sh before changes take effect")
-else
-    puts("You need to restart the console and source env.sh before changes take effect")    
-end	
+
 
 
