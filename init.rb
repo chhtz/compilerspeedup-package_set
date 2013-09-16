@@ -36,16 +36,18 @@ configuration_option 'iceCC', 'string',
 :default => 'no',
 :possible_values => ['yes', 'no'],
 :doc => gitorious_long_doc do |value|
-
     #the actural settings if enabled
     if (value == 'yes') then
       Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
+      Autoproj.change_option("iceCC", value)
       # icecc recommentds 15, so lets use it
       Autobuild.parallel_build_level = 50
       puts("You need to run source env.sh before changes take effect")
     else
-      puts("You need to restart the console and source env.sh before changes take effect")    
+      puts("You need to restart the console and source env.sh before changes take effect")
+      Autoproj.change_option("iceCC", value)    
     end
+    
     value
 end
 
