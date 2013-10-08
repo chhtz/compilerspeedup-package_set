@@ -12,6 +12,7 @@ Autoproj.user_config('iceCC')
 #the actural settings if enabled
 if (Autoproj.user_config('iceCC')) then
 	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
+  Autoproj.add_build_system_dependency 'icecc'
 	# icecc recommentds 15, so lets use it
 	Autobuild.parallel_build_level = 50
 	puts("You need to run source env.sh before changes take effect")
