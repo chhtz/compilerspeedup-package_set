@@ -8,7 +8,7 @@ configuration_option 'iceCC', 'boolean',
      "Do you want to use icecc for compiling sources [yes/no]"]
        
 
-#Autoproj.user_config('iceCC')
+Autoproj.user_config('iceCC')
 #the actural settings if enabled
 if (Autoproj.user_config('iceCC')) then
 	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
