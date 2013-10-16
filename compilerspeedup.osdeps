@@ -9,4 +9,3 @@ distcc:
 icecc:
     debian,ubuntu:
         - icecc
-        - icecc-monitor
