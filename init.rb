@@ -14,7 +14,7 @@ if (Autoproj.user_config('iceCC')) then
 	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
   Autoproj.add_build_system_dependency 'icecc'
 	# icecc recommentds 15, so lets use it
-	Autobuild.parallel_build_level = 50
+	Autobuild.parallel_build_level = 20
 	puts("You need to run source env.sh before changes take effect")
 else
     puts("You need to restart the console and source env.sh before changes take effect, in case iceCC was active before")    
