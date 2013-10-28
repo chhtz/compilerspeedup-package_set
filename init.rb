@@ -16,8 +16,8 @@ if (Autoproj.user_config('iceCC')) then
 	# icecc recommentds 15, so lets use it, 20 created full CPU usage when all 20 are used, build time base/orogen/types 1:41m
   # 15 does not create full cpu usage, build time base/orogen/types 1:52m, but ledd memory used
 	Autobuild.parallel_build_level = 15
-	puts("You need to run source env.sh before changes take effect")
+	Autoproj.message "You need to run source env.sh before changes take effect"
 else
-    puts("You need to restart the console and source env.sh before changes take effect, in case iceCC was active before")    
+    Autoproj.message "You need to restart the console and source env.sh before changes take effect, in case iceCC was active before"
 end	
 
