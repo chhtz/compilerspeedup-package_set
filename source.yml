@@ -1,9 +1,0 @@
-name: compilerspeedup
-required_autoproj_version: 1.7.4
-
-version_control:
-    - .*:
-        type: git
-        url: $SPACEGIT_ROOT/compilerspeedup/$PACKAGE_BASENAME.git
-        push_to: $SPACEGIT_PUSH_ROOT/compilerspeedup/$PACKAGE_BASENAME.git
-         
