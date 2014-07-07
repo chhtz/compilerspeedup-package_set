@@ -14,12 +14,31 @@ Autoproj.configuration_option 'iceCC_parallel', 'string',
      "More parallelism leads to more memory usage",
      "0 means no value (no. of processes can be set autoproj -p)",
      "15 is recommended by the IceCC developers"]
-     
+  
+Autoproj.configuration_option 'ccache', 'boolean',
+:default => 'no',
+:doc => ["Enable ccache (compatible with icecc)?",
+     "ccache caches build .o files",
+     "it avoids rebuilding unchanged code",
+     "Do you want to use ccache for compiling sources [yes/no]"]
+
+if (Autoproj.user_config('ccache')) then
+  Autoproj.add_build_system_dependency 'ccache'
+  Autobuild.env_add_path('PATH','/usr/lib/ccache')
+end
+             
 #Autoproj.user_config('iceCC')
 #the actural settings if enabled
 if (Autoproj.user_config('iceCC')) then
-	Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')
   Autoproj.add_build_system_dependency 'icecc'
+  
+  if (Autoproj.user_config('ccache')) then
+    Autobuild.env_add_path('CCACHE_PREFIX','icecc')
+  else
+    Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')  
+  end
+  
+  #set parallel build level
 	# icecc recommentds 15, so lets use it, 20 created full CPU usage when all 20 are used, build time base/orogen/types 1:41m
   # 15 does not create full cpu usage, build time base/orogen/types 1:52m, but ledd memory used
   
