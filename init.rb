@@ -21,10 +21,20 @@ Autoproj.configuration_option 'ccache', 'boolean',
      "ccache caches build .o files",
      "it avoids rebuilding unchanged code",
      "Do you want to use ccache for compiling sources [yes/no]"]
+     
+Autoproj.configuration_option 'ccacheSize', 'string',
+:default => '10G',
+:doc => ["ccache cache size (system wide, saved in home folder)?",
+     "available suffixes: G, M and K",
+     "Please set the size of the cache"]
 
 if (Autoproj.user_config('ccache')) then
   Autoproj.add_build_system_dependency 'ccache'
   Autobuild.env_add_path('PATH','/usr/lib/ccache')
+  if (Autoproj.user_config('ccacheSize')) then
+    cmd = "ccache -M #{Autoproj.user_config('ccacheSize')}"
+    system(cmd)
+  end
 end
              
 #Autoproj.user_config('iceCC')
