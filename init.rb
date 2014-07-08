@@ -36,12 +36,11 @@ if (Autoproj.user_config('ccache')) then
     system(cmd)
   end
 end
-             
+
 #Autoproj.user_config('iceCC')
 #the actural settings if enabled
 if (Autoproj.user_config('iceCC')) then
   Autoproj.add_build_system_dependency 'icecc'
-  
   if (Autoproj.user_config('ccache')) then
     Autobuild.env_add_path('CCACHE_PREFIX','icecc')
   else
