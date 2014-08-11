@@ -32,7 +32,7 @@ if (Autoproj.user_config('ccache')) then
   Autoproj.add_build_system_dependency 'ccache'
   Autobuild.env_add_path('PATH','/usr/lib/ccache')
   if (Autoproj.user_config('ccacheSize')) then
-    cmd = "ccache -M #{Autoproj.user_config('ccacheSize')}"
+    cmd = "ccache -M #{Autoproj.user_config('ccacheSize')} > /dev/null"
     system(cmd)
   end
 end
