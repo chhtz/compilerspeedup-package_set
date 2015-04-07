@@ -21,16 +21,31 @@ Autoproj.configuration_option 'ccache', 'boolean',
      "ccache caches build .o files",
      "it avoids rebuilding unchanged code",
      "Do you want to use ccache for compiling sources [yes/no]"]
-     
+
+Autoproj.configuration_option 'ccacheDir', 'string',
+:default => 'default',
+:doc => ["ccache cache directory (for this bootstrap)?",
+     "A shared directory for several bootstraps is better",
+     "Please set the directory, 'default' sets os default "]
+          
 Autoproj.configuration_option 'ccacheSize', 'string',
 :default => '10G',
-:doc => ["ccache cache size (system wide, saved in home folder)?",
+:doc => ["maximum ccache cache size?",
      "available suffixes: G, M and K",
      "Please set the size of the cache"]
 
+
+     
 if (Autoproj.user_config('ccache')) then
   Autoproj.add_build_system_dependency 'ccache'
   Autobuild.env_add_path('PATH','/usr/lib/ccache')
+  
+  if (Autoproj.user_config('ccacheDir')) then
+      if Autoproj.user_config('ccacheDir') != 'default'
+          Autobuild.env_add('CCACHE_DIR',Autoproj.user_config('ccacheDir')) 
+      end
+  end
+  
   if (Autoproj.user_config('ccacheSize')) then
     cmd = "ccache -M #{Autoproj.user_config('ccacheSize')} > /dev/null"
     system(cmd)
@@ -42,7 +57,7 @@ end
 if (Autoproj.user_config('iceCC')) then
   Autoproj.add_build_system_dependency 'icecc'
   if (Autoproj.user_config('ccache')) then
-    Autobuild.env_add_path('CCACHE_PREFIX','icecc')
+    Autobuild.env_add('CCACHE_PREFIX','icecc')
   else
     Autobuild.env_add_path('PATH','/usr/lib/icecc/bin')  
   end
