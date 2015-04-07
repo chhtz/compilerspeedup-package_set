@@ -31,7 +31,7 @@ Autoproj.configuration_option 'ccacheDir', 'string',
 Autoproj.configuration_option 'ccacheSize', 'string',
 :default => '10G',
 :doc => ["maximum ccache cache size?",
-     "available suffixes: G, M and K",
+     "available suffixes: G (default), M and K",
      "Please set the size of the cache"]
 
 
