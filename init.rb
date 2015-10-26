@@ -22,6 +22,11 @@ Autoproj.configuration_option 'ccache', 'boolean',
      "it avoids rebuilding unchanged code",
      "Do you want to use ccache for compiling sources [yes/no]"]
 
+Autoproj.configuration_option 'ldgold', 'boolean',
+:default => 'no',
+:doc => ["Use gold linker ? [yes/no]"]
+
+
 Autoproj.configuration_option 'ccacheDir', 'string',
 :default => 'default',
 :doc => ["ccache cache directory (for this bootstrap)?",
@@ -35,6 +40,9 @@ Autoproj.configuration_option 'ccacheSize', 'string',
      "Please set the size of the cache"]
 
 
+if (Autoproj.user_config('ldgold')) then
+  Autobuild.env_add('CXXFLAGS',' -fuse-ld=gold')
+end
      
 if (Autoproj.user_config('ccache')) then
   Autoproj.add_build_system_dependency 'ccache'
