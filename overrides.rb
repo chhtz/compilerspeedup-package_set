@@ -1,3 +1,5 @@
+printed = false
+
 Autoproj.manifest.each_autobuild_package do |pkg|
     case pkg
     when Autobuild::CMake, Autobuild::Autotools
@@ -8,6 +10,13 @@ Autoproj.manifest.each_autobuild_package do |pkg|
             if (Autoproj.user_config('ccacheDir')) then
                 if Autoproj.user_config('ccacheDir') != 'default'
                     Autobuild.env_add('CCACHE_DIR', Autoproj.user_config('ccacheDir')) 
+                end
+            end
+            
+            if (Autoproj.user_config('ccacheSize')) then
+                if !system('ccache', '-M', Autoproj.config.get('ccacheSize').to_s, out: '/dev/null') && !printed then 
+                    Autoproj.error "Couldn't set ccache size"
+                    printed = true
                 end
             end
 
@@ -28,19 +37,7 @@ Autoproj.manifest.each_autobuild_package do |pkg|
                 if (Autoproj.user_config('iceCC_parallel').to_i > 0) then
                     Autobuild.parallel_build_level = Autoproj.user_config('iceCC_parallel').to_i
                 end
-            end
-            #break # skip after one package dependency was bound
-        end
-    end
-end
-
-Autoproj.post_install do |pkg|
-    case pkg
-    when Autobuild::CMake, Autobuild::Autotools
-        if (Autoproj.user_config('ccacheSize')) then
-            if system('ccache', '-M', Autoproj.config.get('ccacheSize').to_s, out: '/dev/null') != 0 then
-                Autoproj.error "Couldn't set ccache size"
-            end
+            end 
         end
     end
 end
