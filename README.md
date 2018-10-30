@@ -25,3 +25,18 @@ WARNING: To really change the enabled/disables setting a `amake --force-build` i
 
 ### ldgold
 * enable/disable
+* 
+
+## License
+
+This Software is distributed under the [BSD-3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
+
+(See LICENCE file)
+
+
+
+## Maintainer / Authors / Contributers
+
+Copyright 2017, DFKI GmbH / Robotics Innovation Center
+
+
