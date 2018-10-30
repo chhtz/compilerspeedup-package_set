@@ -1,0 +1,35 @@
+<package>
+  <description brief="speedup options to speed up compiling">
+    Including this package set in your buildconf will aks you questions in autoprojs configure stage about enabling programs that can speed up compiling.
+    Namely ccache (compiler cache) and icecc (distributed compiler) can be enabled for only the buidlconf including this package set
+  </description>
+  <author>Steffen Planthaber</author>
+  <maintainer>Steffen.Planthaber@dfki.de</maintainer>
+  <license>BSD 3-Clause "New" or "Revised" License</license>
+  <url></url>
+  <logo></logo>
+
+  <keywords>
+    <keyword>ccache</keyword> <!--kw1 currently used as Category in Software Catalog -->
+    <keyword>icecc</keyword>
+    <keyword>compilerspeedup</keyword>
+  </keywords>
+
+  <stage>0</stage>
+  <!-- <use>single project</use> -->
+  <use>multi project</use>
+  <!-- <use>external</use> -->
+  <!-- <activity>active</activity> -->
+  <activity>pending</activity>
+  <!-- <activity>discontinued</activity> -->
+  <classifiers> <!--optional -->
+    <!-- The idea of "classifiers" is to provide additional meta data about the software,
+         for example, which programming language has been used, what is the target platform,
+         is it compatible with any robotic middleware. The idea is similar to classifiers
+         in the Python package index (https://packaging.python.org/tutorials/distributing-packages/#classifiers)
+         but we don't have a predefined list of allowed classifiers. -->
+    <classifier>c++</classifier>
+    <classifier>rock</classifier>
+    <classifier>autoproj</classifier>
+  </classifiers>
+</package>
