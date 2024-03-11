@@ -1,13 +1,13 @@
 
 #enable iceCC 
-Autoproj.configuration_option 'iceCC', 'boolean',
+Autoproj.config.declare 'iceCC', 'boolean',
 :default => 'no',
 :doc => ["Enable IceCC?",
      "IceCC compiles distributed in the Network.",
      "If you have a slow machine, this speeds up compiling",
      "Do you want to use icecc for compiling sources [yes/no]"]
        
-Autoproj.configuration_option 'iceCC_parallel', 'string',
+Autoproj.config.declare 'iceCC_parallel', 'string',
 :default => '15',
 :doc => ["Parallel build processes for IceCC?",
      "Sets default number of parallel builds",
@@ -15,25 +15,25 @@ Autoproj.configuration_option 'iceCC_parallel', 'string',
      "0 means no value (no. of processes can be set autoproj -p)",
      "15 is recommended by the IceCC developers"]
   
-Autoproj.configuration_option 'ccache', 'boolean',
+Autoproj.config.declare 'ccache', 'boolean',
 :default => 'no',
 :doc => ["Enable ccache (compatible with icecc)?",
      "ccache caches build .o files",
      "it avoids rebuilding unchanged code",
      "Do you want to use ccache for compiling sources [yes/no]"]
 
-Autoproj.configuration_option 'ldgold', 'boolean',
+Autoproj.config.declare 'ldgold', 'boolean',
 :default => 'no',
 :doc => ["Use gold linker ? [yes/no]"]
 
 
-Autoproj.configuration_option 'ccacheDir', 'string',
+Autoproj.config.declare 'ccacheDir', 'string',
 :default => 'default',
 :doc => ["ccache cache directory (for this bootstrap)?",
      "A shared directory for several bootstraps is better",
      "Please set the directory, 'default' sets os default "]
           
-Autoproj.configuration_option 'ccacheSize', 'string',
+Autoproj.config.declare 'ccacheSize', 'string',
 :default => '10G',
 :doc => ["maximum ccache cache size?",
      "available suffixes: G (default), M and K",
